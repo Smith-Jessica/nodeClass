@@ -10,15 +10,21 @@
   <% include ../partials/nav.ejs %>
 
   <div class="container">
-    
-    <% if (rate) { %>
-    <h1>Your rate is: $<%= rate %></h1>
-    <% } else { %>
-    <h1>Oops! Something went wrong</h1>
-    <% } %>
 
+
+    <div class="card w-50">
+      <div class="card-body">
+        <h5 class="card-title">Your Shipping Rate</h5>
+        <p class="card-text">
+          <% if (rate) { %>
+          Your rate is: $<%= rate %></p>
+        <% } else { %>
+        Oops! Something went wrong</p>
+        <% } %>
+        <a href="#" class="btn btn-primary">Button</a>
+      </div>
+    </div>
   </div>
-
 </body>
 
 </html>
