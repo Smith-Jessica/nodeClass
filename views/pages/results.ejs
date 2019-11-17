@@ -11,18 +11,20 @@
 
   <div class="container">
 
-
-    <div class="card w-50">
-      <div class="card-body">
-        <h5 class="card-title">Your Shipping Rate</h5>
-        <p class="card-text">
-          <% if (rate) { %>
-          Your rate is: $<%= rate %></p>
-        <% } else { %>
-        Oops! Something went wrong</p>
-        <% } %>
-      </div>
+    <div class="jumbotron">
+      <h1 class="display-4">Your Shipping Rate</h1>
+      <hr class="my-4">
+      <p> <% if (rate) { %>
+        Your rate is: $<%= rate %></p>
+      <% } else { %>
+      Oops! Something went wrong</p>
+      <% } %>
+      <p class="lead">
+        <a class="btn btn-primary btn-lg" href="/" role="button">Try Again</a>
+      </p>
     </div>
+
+
   </div>
 </body>
 
