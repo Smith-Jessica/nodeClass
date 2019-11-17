@@ -10,19 +10,12 @@
   <% include ../partials/nav.ejs %>
 
   <div class="container">
-    <h2>Your cost for shipping</h2>
-
-    <ul>
-      <li>UPSPS:
-      <li>$5.00</li>
-      </li>
-      <li>FedEx:
-      <li>Coming Soon</li>
-      </li>
-      <li>UPS:
-      <li>Coming Soon</li>
-      </li>
-    </ul>
+    
+    <% if (rate) { %>
+    <h1>Your rate is: $<%= rate %></h1>
+    <% } else { %>
+    <h1>Oops! Something went wrong</h1>
+    <% } %>
 
   </div>
 
