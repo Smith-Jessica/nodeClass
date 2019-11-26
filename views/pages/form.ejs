@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+
+  <% include ../partials/nav.ejs %>
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <a href="/" class="lang-logo">
+      <img src="/ship-3619166_960_720.png">
+    </a>
+    <h1>Cost of Shipping</h1>
+  </div>
+</div>
+<div class="container">
+        <form action="/results" method="GET" class="form-inline">
+            <div class="form-group mb-2">
+                <label for="weight">Weight(lbs)</label>
+                <input type="number" class="form-control" name="weight" id="weight" placeholder="1.5">
+            </div>
+            <div class="form-group mb-2">
+                <label for="type">Shipping Type</label>
+                <select class="form-control" id="type" name="mtype">
+                    <option selected>Choose...</option>
+                    <option value="1">Letters (Stamped)</option>
+                    <option value="2">Letters (Metered)</option>
+                    <option value="3">Large Envelopes (Flats)</option>
+                    <option value="4">First-Class Package Service—Retail</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        </form>
+  <hr>
+  <div class="row">
+    <div class="col-md-6">
+      <h3><span class="glyphicon glyphicon-info-sign"></span> How this sample app works</h3>
+      <p>Fill out the form and click submit</p>
+    </div>
+    <div class="col-md-6">
+      <h3><span class="glyphicon glyphicon-link"></span> Next Steps</h3>
+      <ul>
+        <li>Make sure to tell the author what a great job she did.</li>
+      </ul>
+      <h3><span class="glyphicon glyphicon-link"></span> Helpful Links</h3>
+      <ul>
+        <li><a href="https://pe.usps.com/text/dmm300/Notice123.htm">USPS</a></li>
+      </ul>
+    </div>
+  </div> <!-- row -->
+</div>
+
+
+</body>
+</html>

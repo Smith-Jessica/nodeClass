@@ -8,7 +8,8 @@ express()
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/index'))
   .get('/takeQuiz', function (req, res) {  buildQuiz(function (quiz, currQ) { res.render('pages/questions', { quiz : quiz, currQ : currQ}); }) })
-  .get('/getRate', function (req, res) { var mtype = req.query.mtype; var weight = req.query.weight; calculateRate(mtype, weight, function (rate) { res.render('pages/results',{ rate : rate }); }) })
+  .get('/getRate', function (req, res) { res.render('pages/form');})
+  .get('/results', function (req, res) { var mtype = req.query.mtype; var weight = req.query.weight; calculateRate(mtype, weight, function (rate) { res.render('pages/results',{ rate : rate }); }) })
   .listen(PORT, () => console.log(`Listening on ${PORT}`))
 
 
