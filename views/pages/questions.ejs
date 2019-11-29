@@ -14,25 +14,23 @@
     <div class="jumbotron">
       <h1 class="display-4">Quiz</h1>
       <hr class="my-4">
-      
-      <p> <% if (quiz) { %>
-        <%= quiz[currQ].getText() %></p>
-        <form>
-        <%let choices = quiz[currQ].getAnswers() %>
-
-        <% choices.forEach(function(choices){ %>
-            <input type="radio"><%= choices%></input><br>
-        <% }) %>
+      <form action='/takeQuiz' method='GET'>
+        <div class="form-group">
+          <p><%- quiz[currQ].getText() %></p>
         
-      <% } else { %>
-      Oops! Something went wrong</p>
-      <% } %>
+        <%let choices = quiz[currQ].getAnswers() %>
+        <div class="input-group">
+        <% choices.forEach(function(choices){ %>
+            <label for="optradio" class="form-row"><input type="radio" id="optradio"><%- choices%></label>
+        <% }) %>
+        </div>
+      <button class="btn btn-primary mb-2" type="submit">Next Question</button>
+    </div>
     </form>
       <p class="lead">
-        <a class="btn btn-primary btn-lg" href="/" role="button">Try Again</a>
+        <a class="btn btn-info btn-lg" href="/" role="button">Go Home</a>
       </p>
     </div>
-
 
   </div>
 </body>

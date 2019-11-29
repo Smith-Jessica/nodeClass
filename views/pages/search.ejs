@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+
+  <% include ../partials/nav.ejs %>
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <a href="/" class="lang-logo">
+      <img src="/ship-3619166_960_720.png">
+    </a>
+    <h1>Find a Movie</h1>
+  </div>
+</div>
+<div class="container">
+        <form action="/search" method="GET" class="form-inline">
+            <div class="form-group mb-2">
+                <label for="term">Title</label>
+                <input type="text" class="form-control" name="t" id="term" placeholder="title">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        </form>
+  <hr>
+  <div class="row">
+    <div class="col-md-6">
+      <h3><span class="glyphicon glyphicon-info-sign"></span> How this sample app works</h3>
+      <p>Fill out the form and click submit</p>
+    </div>
+  </div> <!-- row -->
+</div>
+
+
+</body>
+</html>
