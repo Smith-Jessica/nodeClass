@@ -1,16 +1,18 @@
 const express = require('express')
 const path = require('path')
+bodyParser = require('body-parser')
 const PORT = process.env.PORT || 5000
 express()
   .use(express.static(path.join(__dirname, 'public')))
   .use(express.json())
+  .use(bodyParser.urlencoded({ extended: false }))
+  .use(bodyParser.json())
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/index'))
   .get('/takeQuiz', function (req, res) { buildQuiz(function (quiz, currQ) { res.render('pages/questions', { quiz: quiz, currQ: currQ }); }) })
-  .post('/takeQuiz', function (req, res) { res.render('pages/questions', { quiz: quiz, currQ: currQ }); checkAnswer(quiz, currQ, req.query.answer); })
+  .get('/quizScore', function (req, res) { checkAnswer(quiz, 0, req.query); res.render('pages/answers', { quiz: quiz, currQ: currQ });  })
   .get('/getRate', function (req, res) { res.render('pages/form'); })
-  //.get('/getMovie', function (req, res) { res.render('pages/search');})
   .get('/results', function (req, res) { var mtype = req.query.mtype; var weight = req.query.weight; calculateRate(mtype, weight, function (rate) { res.render('pages/results', { rate: rate }); }) })
   .listen(PORT, () => console.log(`Listening on ${PORT}`))
 
@@ -20,7 +22,7 @@ function calculateRate(mtype, weight, callback) {
   //Letters (Stamped)
   if (mtype == 1 && weight <= 1 && weight > 0)
     callback(0.55);
-  else if (mtype == 1 && weight <= 2 && weight > 1)
+  else if (mtype == 1 && weight <= 2 && weight > 1)  
     callback(0.70);
   else if (mtype == 1 && weight <= 3 && weight > 2)
     callback(0.85);
@@ -115,7 +117,7 @@ function buildQuiz(callback) {
   //if (first) {
     var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "https://opentdb.com/api.php?amount=10&type=multiple");
+    xmlhttp.open("GET", "https://opentdb.com/api.php?amount=5&type=multiple");
     xmlhttp.setRequestHeader("Content-Type", "application/json"); //was application/x-www-form-urlencoded
     xmlhttp.send();
     xmlhttp.onreadystatechange = function () {
@@ -129,13 +131,8 @@ function buildQuiz(callback) {
           var q3 = Object.assign(new Question(obj.results[2].question, obj.results[2].correct_answer, obj.results[2].incorrect_answers), obj.results[2]);
           var q4 = Object.assign(new Question(obj.results[3].question, obj.results[3].correct_answer, obj.results[3].incorrect_answers), obj.results[3]);
           var q5 = Object.assign(new Question(obj.results[4].question, obj.results[4].correct_answer, obj.results[4].incorrect_answers), obj.results[4]);
-          var q6 = Object.assign(new Question(obj.results[5].question, obj.results[5].correct_answer, obj.results[5].incorrect_answers), obj.results[5]);
-          var q7 = Object.assign(new Question(obj.results[6].question, obj.results[6].correct_answer, obj.results[6].incorrect_answers), obj.results[6]);
-          var q8 = Object.assign(new Question(obj.results[7].question, obj.results[7].correct_answer, obj.results[7].incorrect_answers), obj.results[7]);
-          var q9 = Object.assign(new Question(obj.results[8].question, obj.results[8].correct_answer, obj.results[8].incorrect_answers), obj.results[8]);
-          var q10 = Object.assign(new Question(obj.results[9].question, obj.results[9].correct_answer, obj.results[9].incorrect_answers), obj.results[9]);
 
-          quiz = [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10];
+          quiz = [q1, q2, q3, q4, q5];
           
           //console.log("this means that the ajax request worked just fine.");
           //console.log(quiz + "  ", currQ);
@@ -164,19 +161,30 @@ function displayQuiz(callback) {
   //do I need this?
 
 }
-function checkAnswer(quiz, y, answer, callback) {
+function checkAnswer(quiz, y, answer) {
   //get user input
   console.log("This is y: " + y);
-  console.log("This is y+1" + y+1);
-  let key = quiz[y].getCorrectAnswer();
+  console.log("This is quiz:" + quiz);
+  //console.log("This is answer(req.body): " + JSON.stringify(answer[0]));
+  //console.log("This is y+1: " + y);
+  let quiz_score = 0;
+  for(var i = 0; i < 5; i++ ){
+    let key = quiz[i].getCorrectAnswer();
+    let id = "name_" + i;
 
-  if(answer == key) {
-    console.log("That answer was correct.");
+    if(answer[id] == key) {
+      console.log("That answer was correct.");
+      quiz_score += 5;
+      console.log("This is the answer you picked: " + answer[id]);
+      console.log("This is the correct answer: " + key);
+    }
+    else {
+      console.log("That answer was wrong.");
+      console.log("This is the answer you picked: " + answer[id]);
+      console.log("This is the correct answer: " + key);
+  
+    }
   }
-  else {
-    console.log("That answer was wrong.");
-    console.log("This is the answer you picked: " + answer);
-    console.log("This is the correct answer: " + key);
+  console.log(quiz_score);
 
-  }
 }

@@ -14,23 +14,28 @@
     <div class="jumbotron">
       <h1 class="display-4">Quiz</h1>
       <hr class="my-4">
-      <form action='/takeQuiz' method='POST'>
+      <form action='/quizScore' method='GET'>
+
+        <% for (var i = 0; i < quiz.length; i++) { %>
         <div class="form-group">
-          <p><%- quiz[currQ].getText() %></p>
-        
-        <%let choices = quiz[currQ].getAnswers() %>
-        <div class="input-group">
-        <% choices.forEach(function(choices){ %>
-            <label for="optradio" class="form-row"><input type="radio" id="optradio" name="answer" value="<%= choices %>"><%- choices%></label>
-        <% currQ++}) %>
+          <p><%- quiz[i].getText() %></p>
+
+          <%let choices = quiz[i].getAnswers(); %>
+          <div class="input-group">
+            <% choices.forEach(function(choices){ %>
+            <label for="optradio" class="form-row"><input type="radio" id="optradio" name="name_<%- i%>"
+                value="<%= choices %>"><%- choices%></label>
+            <% }) %>
+          </div>
         </div>
-      <button class="btn btn-primary mb-2" type="submit">Next Question</button>
+        <% } %>
     </div>
+    <button class="btn btn-primary mb-2" type="submit">Submit</button>
     </form>
-      <p class="lead">
-        <a class="btn btn-info btn-lg" href="/" role="button">Go Home</a>
-      </p>
-    </div>
+    <p class="lead">
+      <a class="btn btn-info btn-lg" href="/" role="button">Go Home</a>
+    </p>
+  </div>
 
   </div>
 </body>

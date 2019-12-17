@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+
+  <% include ../partials/nav.ejs %>
+
+  <div class="container">
+
+    <div class="jumbotron">
+      <h1 class="display-4">Quiz</h1>
+      <hr class="my-4">
+      <form action='/quizScore' method='GET'>
+        <div class="form-group">
+            <% if(!quiz) { console.log("quiz is undefined")}else {%>
+            <% for (var i = 0; i < quiz.length; i++) { %>
+          <p><%- quiz[i].getText() %></p>
+        
+        <%let answers = quiz[i].getCorrectAnswer() %>
+        <% console.log(answers)%>
+        <div class="input-group">
+     
+        </div>
+      
+      <% } }%>
+    </div>
