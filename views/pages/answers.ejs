@@ -21,7 +21,7 @@
         
         <%let answers = quiz[i].getCorrectAnswer(); let id = "name_" + i; %>
         <% if (ur_answer[id] == answers) { %>
-            <p>Great Job!</p>
+            <p>Great Job! Answer: <%-answers%></p>
         <%} else {%>
         <p>This is your answer: <%-ur_answer[id]%></p>
         <p>This is the correct answer: <%-answers%></p>
