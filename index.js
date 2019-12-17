@@ -11,7 +11,7 @@ express()
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/index'))
   .get('/takeQuiz', function (req, res) { buildQuiz(function (quiz, currQ) { res.render('pages/questions', { quiz: quiz, currQ: currQ }); }) })
-  .get('/quizScore', function (req, res) { checkAnswer(quiz, 0, req.query); res.render('pages/answers', { quiz: quiz, currQ: currQ });  })
+  .get('/quizScore', function (req, res) { checkAnswer(quiz, 0, req.query, function (score, ur_answer) {res.render('pages/answers', { quiz: quiz, score: score, ur_answer: ur_answer });  }) })
   .get('/getRate', function (req, res) { res.render('pages/form'); })
   .get('/results', function (req, res) { var mtype = req.query.mtype; var weight = req.query.weight; calculateRate(mtype, weight, function (rate) { res.render('pages/results', { rate: rate }); }) })
   .listen(PORT, () => console.log(`Listening on ${PORT}`))
@@ -157,34 +157,23 @@ function buildQuiz(callback) {
   //}
 
 }
-function displayQuiz(callback) {
-  //do I need this?
 
-}
-function checkAnswer(quiz, y, answer) {
+function checkAnswer(quiz, y, answer, callback) {
   //get user input
-  console.log("This is y: " + y);
-  console.log("This is quiz:" + quiz);
-  //console.log("This is answer(req.body): " + JSON.stringify(answer[0]));
-  //console.log("This is y+1: " + y);
+
   let quiz_score = 0;
+  if(!quiz) {
+    console.log("something wrong with quiz");
+  }else {
   for(var i = 0; i < 5; i++ ){
     let key = quiz[i].getCorrectAnswer();
     let id = "name_" + i;
 
     if(answer[id] == key) {
-      console.log("That answer was correct.");
       quiz_score += 5;
-      console.log("This is the answer you picked: " + answer[id]);
-      console.log("This is the correct answer: " + key);
-    }
-    else {
-      console.log("That answer was wrong.");
-      console.log("This is the answer you picked: " + answer[id]);
-      console.log("This is the correct answer: " + key);
-  
     }
   }
-  console.log(quiz_score);
+}
+  callback(quiz_score, answer);
 
 }

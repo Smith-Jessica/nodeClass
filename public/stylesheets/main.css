@@ -14,7 +14,7 @@
 }
 
 .jumbotron p {
-  color: #d9ccee;
+  color: #fefefe;
   max-width: 75%;
   margin: 1em auto 2em;
 }
@@ -47,4 +47,12 @@ label {
 
 .hidden {
   display: none;
+}
+
+.question{
+  margin-left: 0; 
+  margin-bottom: 1em;
+  max-width: 75%;
+  font-size: 21px;
+  font-weight: 200;
 }

@@ -14,17 +14,18 @@
     <div class="jumbotron">
       <h1 class="display-4">Quiz</h1>
       <hr class="my-4">
-      <form action='/quizScore' method='GET'>
-        <div class="form-group">
+       <h2>Your Score is <%- score %></h2>     
             <% if(!quiz) { console.log("quiz is undefined")}else {%>
             <% for (var i = 0; i < quiz.length; i++) { %>
-          <p><%- quiz[i].getText() %></p>
+          <div class="question"><%- quiz[i].getText() %></div>
         
-        <%let answers = quiz[i].getCorrectAnswer() %>
-        <% console.log(answers)%>
-        <div class="input-group">
-     
-        </div>
+        <%let answers = quiz[i].getCorrectAnswer(); let id = "name_" + i; %>
+        <% if (ur_answer[id] == answers) { %>
+            <p>Great Job!</p>
+        <%} else {%>
+        <p>This is your answer: <%-ur_answer[id]%></p>
+        <p>This is the correct answer: <%-answers%></p>
       
-      <% } }%>
+      <% } } }%>
+      <a href="/takeQuiz" class="btn btn-primary mb-2">Back</a>
     </div>
